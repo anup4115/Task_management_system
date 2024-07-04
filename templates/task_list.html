@@ -1,0 +1,26 @@
+<!-- task_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>All Tasks</h1>
+    <ul class="list-group">
+        {% for task in tasks %}
+            <li class="list-group-item"  style="margin-bottom: 50px">
+                <div>
+                    <strong>{{ task.title }}</strong>
+                    <p>{{ task.description }}</p>
+                    <p>Due Date: {{ task.due_date }}</p>
+                    {% if task.completed %}
+                        <p>Status: <span class="badge badge-success">Completed</span></p>
+                    {% else %}
+                        <p>Status: <span class="badge badge-warning">Pending</span></p>
+                    {% endif %}
+                    <a href="{% url 'task_detail' task.id %}" class="btn btn-info btn-sm">View Details</a>
+                </div>
+            </li>
+        {% empty %}
+            <p>No tasks available.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_task' %}" class="btn btn-primary mt-3">Create Task</a>
+{% endblock %}
